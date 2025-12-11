@@ -1,0 +1,50 @@
+﻿@model WebApplication5.ViewModels.TodoEditVM
+
+@{
+    ViewData["Title"] = "Modifier Todo";
+}
+
+<h2>Modifier Todo</h2>
+
+<form asp-action="Edit" asp-route-id="@ViewBag.id" method="post">
+    <!-- Hidden input pour l'ID -->
+    @* <input type="hidden" asp-for="Id" /> *@
+
+    <!-- Libelle -->
+    <div class="mb-3">
+        <label asp-for="Libelle" class="form-label"></label>
+        <input asp-for="Libelle" class="form-control" />
+        <span asp-validation-for="Libelle" class="text-danger"></span>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <!-- State (Doing / Done / Todo) -->
+    <div class="mb-3">
+        <label asp-for="State" class="form-label"></label>
+        <select asp-for="State" class="form-select" asp-items="Html.GetEnumSelectList<WebApplication5.Enums.State>()">
+            <option value="">-- Sélectionnez l'état --</option>
+        </select>
+        <span asp-validation-for="State" class="text-danger"></span>
+    </div>
+
+    <!-- Date limite -->
+    <div class="mb-3">
+        <label asp-for="DateLimite" class="form-label"></label>
+        <input asp-for="DateLimite" class="form-control" type="date" />
+        <span asp-validation-for="DateLimite" class="text-danger"></span>
+    </div>
+
+    <!-- Boutons -->
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
